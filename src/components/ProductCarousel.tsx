@@ -3,6 +3,7 @@ import { motion } from 'motion/react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { CarouselProductCard } from './CarouselProductCard';
 import { ScrollReveal } from './ScrollReveal';
+import { useCart } from '../context/CartContext';
 
 interface Product {
   id: string;
@@ -111,14 +112,26 @@ export function ProductCarousel() {
   const trackRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
+  const { addItem } = useCart();
   
   const products = PRODUCTS_DATA;
 
   // Handle add to cart
   const handleAddToCart = (product: Product, weight: string) => {
-    console.log('Added to cart:', { product: product.name, weight });
-    // TODO: Wire to your cart store (Redux/Zustand/Context)
-    // Example: dispatch(addToCart({ ...product, selectedWeight: weight }));
+    const weightPrices: { [key: string]: number } = {
+      "200 ml": product.priceINR * 0.2,
+      "250 ml": product.priceINR * 0.25,
+      "500 ml": product.priceINR * 0.5,
+      "1 L": product.priceINR,
+    };
+    
+    addItem({
+      id: `${product.id}-${weight}`,
+      name: product.name,
+      imageUrl: product.image,
+      price: weightPrices[weight] || product.priceINR,
+      weight: weight,
+    });
   };
 
   // Scroll by one card width

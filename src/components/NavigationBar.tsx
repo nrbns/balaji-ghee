@@ -1,13 +1,18 @@
 import { motion, useScroll, useTransform } from 'motion/react';
 import { useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import anime from 'animejs';
 import { ShoppingCart, Menu, LogIn } from 'lucide-react';
+import { useCart } from '../context/CartContext';
 
 export function NavigationBar() {
+  const navigate = useNavigate();
   const navRef = useRef<HTMLElement>(null);
   const logoRef = useRef<HTMLDivElement>(null);
   const linksRef = useRef<HTMLDivElement>(null);
   const cartRef = useRef<HTMLButtonElement>(null);
+  
+  const { totalItems } = useCart();
   
   const { scrollY } = useScroll();
   const backgroundColor = useTransform(
@@ -146,11 +151,7 @@ export function NavigationBar() {
         {/* Actions */}
         <div className="flex items-center space-x-4">
           <button
-            onClick={() => {
-              // Trigger MasterPanel to open
-              const event = new CustomEvent('openMasterPanel');
-              window.dispatchEvent(event);
-            }}
+            onClick={() => navigate('/login')}
             onMouseEnter={(e) => {
               anime({
                 targets: e.currentTarget,
@@ -173,6 +174,7 @@ export function NavigationBar() {
 
           <button
             ref={cartRef}
+            onClick={() => navigate('/cart')}
             onMouseEnter={(e) => {
               anime({
                 targets: e.currentTarget,
@@ -188,12 +190,14 @@ export function NavigationBar() {
                 duration: 200,
               });
             }}
-            className="relative p-2 text-[var(--gold-light)] hover:text-[var(--gold)] transition-colors opacity-0"
+            className="relative p-2 text-[var(--gold-light)] hover:text-[var(--gold)] transition-colors"
           >
             <ShoppingCart className="w-6 h-6" />
-            <span className="absolute -top-1 -right-1 w-5 h-5 bg-[var(--gold)] text-[var(--warm-black)] rounded-full flex items-center justify-center text-xs">
-              0
-            </span>
+            {totalItems > 0 && (
+              <span className="absolute -top-1 -right-1 w-5 h-5 bg-[var(--gold)] text-[var(--warm-black)] rounded-full flex items-center justify-center text-xs font-bold">
+                {totalItems}
+              </span>
+            )}
           </button>
 
           <button className="md:hidden text-[var(--gold-light)]">

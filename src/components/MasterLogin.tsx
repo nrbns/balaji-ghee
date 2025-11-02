@@ -29,78 +29,87 @@ export function MasterLogin({ onLoginSuccess }: MasterLoginProps) {
   };
 
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/50 backdrop-blur-sm">
+    <div 
+      className="fixed inset-0 bg-black/60 z-[9999] flex items-center justify-center p-4"
+      onClick={(e) => {
+        // Close on backdrop click
+        if (e.target === e.currentTarget) {
+          // Optional: Don't close on backdrop click
+        }
+      }}
+    >
       <motion.div
-        initial={{ scale: 0.9, opacity: 0 }}
+        initial={{ scale: 0.95, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
-        className="w-full max-w-md bg-[var(--cream)] rounded-2xl shadow-2xl border border-[var(--gold)]/30 p-8 pointer-events-auto"
+        exit={{ scale: 0.95, opacity: 0 }}
+        className="w-full max-w-md bg-white rounded-xl shadow-2xl overflow-hidden"
+        onClick={(e) => e.stopPropagation()}
       >
-        <div className="text-center mb-8">
-          <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-br from-[var(--gold)] to-[var(--gold-dark)] flex items-center justify-center">
-            <Lock className="h-8 w-8 text-[var(--warm-black)]" />
+        {/* Header */}
+        <div className="bg-gradient-to-r from-[var(--gold)] to-[var(--gold-medium)] p-6 text-center">
+          <div className="w-16 h-16 mx-auto mb-3 rounded-full bg-white flex items-center justify-center shadow-lg">
+            <Lock className="h-8 w-8 text-[var(--gold)]" />
           </div>
-          <h2 className="text-2xl font-bold text-[var(--warm-black)]">Master Panel Access</h2>
-          <p className="text-sm text-[var(--warm-gray)] mt-2">Enter your credentials to continue</p>
+          <h2 className="text-2xl font-bold text-white">Master Panel Access</h2>
+          <p className="text-sm text-white/90 mt-1">Enter your credentials to continue</p>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
+        {/* Form */}
+        <form onSubmit={handleSubmit} className="p-6 space-y-4 bg-[var(--cream)]">
           {error && (
-            <motion.div
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="flex items-center gap-2 p-3 bg-red-50 border border-red-200 rounded-lg text-red-600 text-sm"
-            >
-              <AlertCircle className="h-4 w-4" />
-              {error}
-            </motion.div>
+            <div className="flex items-center gap-2 p-3 bg-red-50 border border-red-200 rounded-lg text-red-600 text-sm">
+              <AlertCircle className="h-4 w-4 flex-shrink-0" />
+              <span>{error}</span>
+            </div>
           )}
 
           <div>
-            <label className="block text-sm font-medium text-[var(--warm-black)] mb-2">
+            <label htmlFor="login-email" className="block text-sm font-medium text-gray-700 mb-2">
               Email
             </label>
             <div className="relative">
-              <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-[var(--warm-gray)]" />
+              <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
               <input
+                id="login-email"
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                className="w-full pl-10 pr-4 py-3 border border-[var(--gold)]/30 rounded-lg bg-white/60 focus:outline-none focus:border-[var(--gold)]"
+                className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--gold)] focus:border-transparent outline-none transition-all"
                 placeholder="admin@example.com"
+                autoComplete="email"
               />
             </div>
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-[var(--warm-black)] mb-2">
+            <label htmlFor="login-password" className="block text-sm font-medium text-gray-700 mb-2">
               Password
             </label>
             <div className="relative">
-              <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-[var(--warm-gray)]" />
+              <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
               <input
+                id="login-password"
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
-                className="w-full pl-10 pr-4 py-3 border border-[var(--gold)]/30 rounded-lg bg-white/60 focus:outline-none focus:border-[var(--gold)]"
-                placeholder="••••••••"
+                className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--gold)] focus:border-transparent outline-none transition-all"
+                placeholder="Enter your password"
+                autoComplete="current-password"
               />
             </div>
           </div>
 
-          <motion.button
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
+          <button
             type="submit"
             disabled={loading}
-            className="w-full py-3 bg-gradient-to-r from-[var(--gold)] to-[var(--gold-medium)] text-[var(--warm-black)] font-semibold rounded-lg hover:shadow-lg transition-shadow disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full py-3 bg-gradient-to-r from-[var(--gold)] to-[var(--gold-medium)] text-white font-semibold rounded-lg hover:shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {loading ? 'Signing in...' : 'Sign In'}
-          </motion.button>
+          </button>
         </form>
       </motion.div>
     </div>
   );
 }
-

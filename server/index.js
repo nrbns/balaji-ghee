@@ -32,7 +32,7 @@ app.post('/api/auth/register', async (req, res) => {
 
     // Check if users exist
     const existingUsers = await dbAsync.all('SELECT COUNT(*) as count FROM users');
-    if (existingUsers.length > 0 && role === 'MASTER') {
+    if (existingUsers.length > 0 && existingUsers[0].count > 0 && role === 'MASTER') {
       return res.status(403).json({ error: 'MASTER role can only be assigned to first user' });
     }
 
