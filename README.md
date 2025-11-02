@@ -1,16 +1,17 @@
-# Enhance Balaji Ghee Store UI
+# Balaji Ghee Store - Complete E-commerce Platform
 
-This is a code bundle for Enhance Balaji Ghee Store UI. The original project is available at https://www.figma.com/design/dA5N7O6HNKMGRHma3mCUJx/Enhance-Balaji-Ghee-Store-UI.
+Beautiful e-commerce platform for Balaji Ghee Store with a powerful Master Admin Panel. Original design: https://www.figma.com/design/dA5N7O6HNKMGRHma3mCUJx/Enhance-Balaji-Ghee-Store-UI
 
 ## Features
 
 - Beautiful, modern UI with animations
-- Master Admin Panel with secure login
+- Master Admin Panel with secure login 🔑
 - Homepage CMS for editing hero and products
 - Leads Management System with analytics
 - Real-time preview of changes
 - SQLite database for data persistence
 - JWT-based authentication
+- Contact form with UTM tracking
 
 ## Prerequisites
 
