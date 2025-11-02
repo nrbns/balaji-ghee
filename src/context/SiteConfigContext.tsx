@@ -37,8 +37,7 @@ const generateId = () => {
 
 const initialConfig: SiteConfig = {
   hero: {
-    imageUrl:
-      'https://images.unsplash.com/photo-1728910156510-77488f19b152?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx0cmFkaXRpb25hbCUyMGluZGlhbiUyMGZvb2R8ZW58MXx8fHwxNzYxOTE2MDQ2fDA&ixlib=rb-4.1.0&q=80&w=1080',
+    imageUrl: '/hero-bg.png',
     title: 'Balaji Ghee',
     subtitle: 'Sacred tradition, liquid gold. Crafted with devotion, blessed by heritage.',
   },
